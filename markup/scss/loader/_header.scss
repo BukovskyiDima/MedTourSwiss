@@ -1,0 +1,161 @@
+#header {
+
+	padding: 15px 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba($white, .95);
+	z-index: 99;
+	box-shadow: 0 0 2px 0 rgba($black , .5);
+
+	.container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+.logo {
+	display: block;
+	max-width: 140px;
+
+	a {
+		display: block;
+	}
+}
+
+.contact-info {
+	width: calc(100% - 150px);
+
+	.nav-bar {
+		@extend %listreset;
+		@include animate(opacity visibility);
+
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+
+		@include media ('<desktop') {
+			background: $white;
+			position: absolute;
+			top: calc(100% - 1px);
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			justify-content: flex-start;
+			opacity: 0;
+			visibility: hidden;
+			height: 100vh;
+		}
+
+		.nav-active & {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		li {
+			width: 100%;
+			border-top: 1px solid rgba($black, .4);
+
+			@include media ('>=desktop') {
+				margin-left: 10px;
+				width: auto;
+				padding: 0;
+				border-top: none;
+				padding: 5px 10px;
+			}
+
+			@include media ('>=widescreen') {
+				margin-left: 30px;
+			}
+
+			a {
+				@include animate(border-bottom color);
+
+				text-align: center;
+				padding: 5px 10px;
+				border-bottom: 1px solid transparent;
+				color: $light-blue;
+
+				@include media ('<desktop') {
+					padding: 10px;
+					display: block;
+					color: inherit;
+					border-bottom: 1px solid transparent;
+				}
+
+				&:hover {
+					color: darken($light-blue, 20%);
+				}
+			}
+
+			&.active a {
+				background-color: $backgroud-color-gray;
+
+				@include media ('>=desktop') {
+					border-bottom: 1px solid rgba($black, .4);
+					background: transparent;
+					color: darken($light-blue, 20%);
+				}
+			}
+		}
+	}
+
+	.nav-opener {
+		float: right;
+		width: 40px;
+		height: 40px;
+		background: $black;
+		background: rgba($black, .4);
+		position: relative;
+		border-radius: 3px;
+
+		@include media ('>=desktop') {
+			display: none;
+		}
+
+		&:hover {
+			opacity: .9;
+		}
+
+		.nav-active & {
+			span {
+				opacity: 0;
+			}
+			&:before,
+			&:after {
+				transform: rotate(45deg);
+				top: 50%;
+				left: 15%;
+				right: 15%;
+			}
+			&:after {
+				transform: rotate(-45deg);
+			}
+		}
+
+		span,
+		&:before,
+		&:after {
+			background: $white;
+			border-radius: 4px;
+			position: absolute;
+			top: 50%;
+			left: 25%;
+			right: 25%;
+			height: 4px;
+			margin-top: -2px;
+			transition: all .3s linear;
+		}
+		&:before,
+		&:after {
+			content: '';
+			top: 30%;
+		}
+		&:after {
+			top: 70%;
+		}
+	}
+}
+
